@@ -8,6 +8,7 @@ import org.keycloak.events.admin.AuthDetails
 import org.keycloak.events.admin.OperationType
 import org.keycloak.events.admin.ResourceType
 import java.util.Date
+import java.util.UUID
 import kotlin.test.Test
 
 class TemporalTest {
@@ -18,7 +19,6 @@ class TemporalTest {
         val factory = TemporalEventListenerProviderFactory()
         factory.init(TestScope())
         val provider = factory.create(null)
-        factory.init(TestScope())
 
         val event = createEvent()
         val adminEvent = createAdminEvent()
@@ -34,7 +34,7 @@ class TemporalTest {
     private fun createEvent(): Event {
         val details = mapOf("a" to "b")
         val ev = Event()
-        ev.id = "id"
+        ev.id = UUID.randomUUID().toString()
         ev.type = EventType.LOGIN
         ev.time = Date().toInstant().epochSecond
         ev.realmId = "test"
@@ -54,7 +54,7 @@ class TemporalTest {
         details.ipAddress = "127.0.0.1"
         details.realmId = "realmId"
         val ev = AdminEvent()
-        ev.id = "id"
+        ev.id = UUID.randomUUID().toString()
         ev.operationType = OperationType.CREATE
         ev.realmId = "realm"
         ev.resourceTypeAsString = "CREATE"

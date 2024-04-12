@@ -33,3 +33,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Maven Extensions
+/.git-versioned-pom.xml
+/dependency-reduced-pom.xml

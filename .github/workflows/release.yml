@@ -1,0 +1,33 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+  release:
+    types:
+      - published
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: PR Check
+        if: github.event_name == 'pull_request'
+        run: mvn --batch-mode compile
+      - name: Publish package
+        run: mvn --batch-mode deploy
+        if: github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

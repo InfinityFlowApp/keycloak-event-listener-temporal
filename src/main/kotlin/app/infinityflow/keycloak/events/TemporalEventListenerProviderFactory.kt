@@ -1,50 +1,67 @@
 package app.infinityflow.keycloak.events
 
+import io.temporal.client.WorkflowClient
+import io.temporal.client.WorkflowClientOptions
+import io.temporal.serviceclient.WorkflowServiceStubs
+import io.temporal.serviceclient.WorkflowServiceStubsOptions
 import org.jboss.logging.Logger
 import org.keycloak.Config
 import org.keycloak.events.EventListenerProvider
 import org.keycloak.events.EventListenerProviderFactory
 import org.keycloak.models.KeycloakSession
 import org.keycloak.models.KeycloakSessionFactory
-import java.util.*
 
 class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
     private val _logger = Logger.getLogger(TemporalEventListenerProviderFactory::class.java)
-    private val _properties = Properties()
-    private var _provider: TemporalEventListenerProvider? = null
+    private var _workflowClient: WorkflowClient? = null
+    private var _server = ""
+    private var _namespace = ""
+    private var _queue = ""
+
 
     override fun create(session: KeycloakSession?): EventListenerProvider {
-        _logger.debug("factory:create TemporalEventListenerProviderFactory")
-        _provider = TemporalEventListenerProvider(session, _properties)
-        return _provider as TemporalEventListenerProvider
+        if (_logger.isDebugEnabled) {
+            _logger.debugf("Creating %s", TemporalEventListenerProvider::class)
+        }
+        return TemporalEventListenerProvider(_workflowClient!!, _queue)
     }
 
     override fun init(config: Config.Scope?) {
-        _logger.debugf("factory:init")
-        val cluster = config?.get("cluster", "localhost:7233")
-        val taskQueue = config?.get("task-queue", "keycloak")
-        val namespace = config?.get("namespace", "default")
+        if (_logger.isDebugEnabled) {
+            _logger.debugf("Initializing %s", TemporalEventListenerProviderFactory::class)
+        }
 
-        _properties.setProperty("cluster", cluster)
-        _properties.setProperty("task-queue", taskQueue)
-        _properties.setProperty("namespace", namespace)
+        _server = config?.get("server") ?: "localhost:7233"
+        _namespace = config?.get("namespace") ?: "default"
+        _queue = config?.get("queue") ?: "keycloak"
 
-        _provider?.init()
+        val workflowServiceStubsOptions = WorkflowServiceStubsOptions
+            .newBuilder()
+            .setTarget(_server)
+            .build()
+        val workflowServiceStubs = WorkflowServiceStubs
+            .newServiceStubs(workflowServiceStubsOptions)
+        _workflowClient = WorkflowClient
+            .newInstance(workflowServiceStubs, WorkflowClientOptions
+                .newBuilder()
+                .setNamespace(_namespace)
+                .build())
     }
 
     override fun postInit(factory: KeycloakSessionFactory?) {
-        _logger.debugf("factory:postInit")
-        _provider?.postInit()
+        if (_logger.isDebugEnabled) {
+            _logger.debugf("Global Initialization %s", TemporalEventListenerProviderFactory::class)
+        }
     }
 
     override fun close() {
-        _logger.debugf("factory:close")
-        _provider?.close()
-        _provider = null
+        if (_logger.isDebugEnabled) {
+            _logger.debugf("Closing %s", TemporalEventListenerProviderFactory::class)
+        }
+        _workflowClient = null
     }
 
     override fun getId(): String {
-        _logger.debugf("factory:getId")
         return "event-listener-temporal"
     }
 }

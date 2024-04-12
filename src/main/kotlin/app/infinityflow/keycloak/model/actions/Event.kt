@@ -10,5 +10,4 @@ data class Event(
         val sessionId: String? = null,
         val ipAddress: String? = null,
         val error: String? = null,
-        val details: Map<String, String?>? = null)  {
-}
+        val details: Map<String, String?>? = null)

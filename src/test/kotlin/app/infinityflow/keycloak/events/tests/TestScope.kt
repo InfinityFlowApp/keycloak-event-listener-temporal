@@ -5,8 +5,8 @@ import org.keycloak.Config.Scope
 class TestScope : Scope {
 
     private val _map: Map<String, String> = mapOf(
-        "cluster" to "localhost:7233",
-        "task-queue" to "default",
+        "server" to "localhost:7233",
+        "queue" to "default",
         "namespace" to "default"
     )
 
