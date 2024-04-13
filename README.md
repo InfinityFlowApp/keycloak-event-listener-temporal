@@ -8,7 +8,7 @@ This Keycloak SPI Event Listener integrates with Temporal Server, allowing you t
 
 For instance, this is how an updated realm event triggered by an administrator might look:
 
-- Queue: keycloak
+- Task Queue: keycloak
 - Namespace: default
 - JSON:
 
@@ -55,18 +55,18 @@ Use the following command-line parameters:
 |-----------------------------------------------------|
 | --spi-events-listener-temporal-server=temporal:7233 |
 | --spi-events-listener-temporal-namespace=default    |
-| --spi-events-listener-temporal-queue=keycloak       |
+| --spi-events-listener-temporal-task-queue=keycloak  |
 
 
 ### Option 2: Environment Variables
 
 Alternatively, you can set these environmental variables:
 
-| Variable                                  | Value         |
-|-------------------------------------------|---------------|
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_SERVER    | temporal:7233 |
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_NAMESPACE | default       |
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_QUEUE     | keycloak      |
+| Variable                                   | Value         |
+|--------------------------------------------|---------------|
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_SERVER     | temporal:7233 |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_NAMESPACE  | default       |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_TASK_QUEUE | keycloak      |
 
 # License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.

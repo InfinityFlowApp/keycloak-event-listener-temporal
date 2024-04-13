@@ -16,14 +16,14 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
     private var _workflowClient: WorkflowClient? = null
     private var _server = ""
     private var _namespace = ""
-    private var _queue = ""
+    private var _taskQueue = ""
 
 
     override fun create(session: KeycloakSession?): EventListenerProvider {
         if (_logger.isDebugEnabled) {
             _logger.debugf("Creating %s", TemporalEventListenerProvider::class)
         }
-        return TemporalEventListenerProvider(_workflowClient!!, _queue)
+        return TemporalEventListenerProvider(_workflowClient!!, _taskQueue)
     }
 
     override fun init(config: Config.Scope?) {
@@ -33,7 +33,7 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
 
         _server = config?.get("server") ?: "localhost:7233"
         _namespace = config?.get("namespace") ?: "default"
-        _queue = config?.get("queue") ?: "keycloak"
+        _taskQueue = config?.get("task-queue") ?: "keycloak"
 
         val workflowServiceStubsOptions = WorkflowServiceStubsOptions
             .newBuilder()
