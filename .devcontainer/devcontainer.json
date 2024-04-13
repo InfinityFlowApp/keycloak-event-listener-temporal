@@ -1,0 +1,20 @@
+{
+	"name": "Keycloak Event Listener for Temporal",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devcontainer",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "none",
+			"installMaven": "true",
+			"installGradle": "false"
+		}
+	},
+	// Pre-compile project
+	"postStartCommand": "mvn -B compile",
+	// Expose Temporal ports
+	"forwardPorts": [
+		7233,
+		8233
+	]
+}

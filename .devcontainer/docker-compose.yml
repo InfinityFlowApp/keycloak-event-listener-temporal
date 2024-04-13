@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/java:1-21-bullseye
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+  temporal:
+    image: temporalio/admin-tools
+    entrypoint:
+      - "/usr/local/bin/temporal"
+      - "server"
+      - "start-dev"
+    command:
+      - "-p"
+      - "7233"
+      - "--ip"
+      - "0.0.0.0"
+    network_mode: service:devcontainer
