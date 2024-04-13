@@ -1,5 +1,9 @@
 # Keycloak Event Listener for Temporal
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/InfinityFlowApp/keycloak-event-listener-temporal/release.yml)
+![GitHub Release](https://img.shields.io/github/v/release/InfinityFlowApp/keycloak-event-listener-temporal)
+![GitHub License](https://img.shields.io/github/license/InfinityFlowApp/keycloak-event-listener-temporal)
+
 [![Discord](https://discordapp.com/api/guilds/1148334798524383292/widget.png?style=banner2)](https://discord.gg/SqpBQwA3)
 
 This Keycloak SPI Event Listener integrates with Temporal Server, allowing you to publish events to it.
