@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration xmlns="https://github.com/qoomon/maven-git-versioning-extension"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="https://github.com/qoomon/maven-git-versioning-extension https://raw.githubusercontent.com/qoomon/maven-git-versioning-extension/master/docs/configuration-7.0.0.xsd">
+    <refs>
+        <ref type="branch">
+            <pattern>^dev(elop)?(ment)?$</pattern>
+            <version>${describe.tag.version.major}.${describe.tag.version.minor.next}.${describe.tag.version.patch}-beta.${describe.distance}</version>
+        </ref>
+
+        <ref type="branch">
+            <pattern>^releases?[/-]</pattern>
+            <version>${describe.tag.version.major}.${describe.tag.version.minor.next}.${describe.tag.version.patch}-rc.${describe.distance}-${feature}</version>
+        </ref>
+
+        <ref type="branch">
+            <pattern>^features?[/-]</pattern>
+            <version>${describe.tag.version.major}.${describe.tag.version.minor.next}.${describe.tag.version.patch}-alpha.${describe.distance}</version>
+        </ref>
+
+        <ref type="branch">
+            <pattern>^hotfix(es)?[/-]</pattern>
+            <version>${describe.tag.version.major}.${describe.tag.version.minor}.${describe.tag.version.patch.next}-beta.${describe.distance}</version>
+        </ref>
+
+        <ref type="tag">
+            <pattern><![CDATA[v(?<version>.*)]]></pattern>
+            <version>${ref.version}</version>
+        </ref>
+    </refs>
+
+    <!-- optional fallback configuration in case of no matching ref configuration-->
+    <rev>
+        <version>${describe.tag.version.major}.${describe.tag.version.minor.next}.${describe.tag.version.patch}-alpha.commit.${commit}</version>
+    </rev>
+</configuration>
