@@ -8,6 +8,10 @@
 
 This Keycloak SPI Event Listener integrates with Temporal Server, allowing you to publish events to it.
 
+<picture>
+    <img alt="Example Screenshot" src="https://raw.githubusercontent.com/InfinityFlowApp/keycloak-event-listener-temporal/main/.assets/temporal-ss-real-case.png"/>
+</picture>
+
 ## Example Event
 
 For instance, this is how an updated realm event triggered by an administrator might look:
