@@ -1,8 +1,8 @@
 # Keycloak Event Listener for Temporal
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/InfinityFlowApp/keycloak-event-listener-temporal/release.yml)
-![GitHub Release](https://img.shields.io/github/v/release/InfinityFlowApp/keycloak-event-listener-temporal)
-![GitHub License](https://img.shields.io/github/license/InfinityFlowApp/keycloak-event-listener-temporal)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/InfinityFlowApp/keycloak-event-listener-temporal/release.yml)](https://github.com/InfinityFlowApp/keycloak-event-listener-temporal/actions?query=branch%3Amain)
+[![GitHub Release](https://img.shields.io/github/v/release/InfinityFlowApp/keycloak-event-listener-temporal)](https://github.com/InfinityFlowApp/keycloak-event-listener-temporal/releases)
+[![GitHub License](https://img.shields.io/github/license/InfinityFlowApp/keycloak-event-listener-temporal)](https://github.com/InfinityFlowApp/keycloak-event-listener-temporal?tab=Apache-2.0-1-ov-file#readme)
 
 [![Discord](https://discordapp.com/api/guilds/1148334798524383292/widget.png?style=banner2)](https://discord.gg/SqpBQwA3)
 
