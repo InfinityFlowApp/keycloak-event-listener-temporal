@@ -1,6 +1,6 @@
 # Keycloak Event Listener for Temporal
 
-[![Discord](https://discordapp.com/api/guilds/1148334798524383292/widget.png?style=banner2)](https://discord.gg/PXJFbP7PKk)
+[![Discord](https://discordapp.com/api/guilds/1148334798524383292/widget.png?style=banner2)](https://discord.gg/SqpBQwA3)
 
 This Keycloak SPI Event Listener integrates with Temporal Server, allowing you to publish events to it.
 
