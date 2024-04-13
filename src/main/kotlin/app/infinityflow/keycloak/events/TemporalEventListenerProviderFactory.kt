@@ -62,6 +62,6 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
     }
 
     override fun getId(): String {
-        return "event-listener-temporal"
+        return "temporal"
     }
 }

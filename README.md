@@ -39,7 +39,7 @@ To get started:
 2. Copy the JAR file into your Keycloak installation.
 3. Configure as described below.
 4. Restart the Keycloak server.
-5. Enable logging in the Keycloak UI by adding `event-listener-temporal`.
+5. Enable logging in the Keycloak UI by adding `temporal`.
 
 
 ## Configuration
@@ -51,22 +51,22 @@ You can configure the listener using one of the following methods:
 
 Use the following command-line parameters:
 
-| Parameter                                                          |
-|--------------------------------------------------------------------|
-| --spi-events-listener-event-listener-temporal-server=temporal:7233 |
-| --spi-events-listener-event-listener-temporal-namespace=default    |
-| --spi-events-listener-event-listener-temporal-queue=keycloak       |
+| Parameter                                           |
+|-----------------------------------------------------|
+| --spi-events-listener-temporal-server=temporal:7233 |
+| --spi-events-listener-temporal-namespace=default    |
+| --spi-events-listener-temporal-queue=keycloak       |
 
 
 ### Option 2: Environment Variables
 
 Alternatively, you can set these environmental variables:
 
-| Variable                                                | Value         |
-|---------------------------------------------------------|---------------|
-| KC_SPI_EVENTS_LISTENER_EVENT_LISTENER_TEMPORAL_SERVER    | temporal:7233 |
-| KC_SPI_EVENTS_LISTENER_EVENT_LISTENER_TEMPORAL_NAMESPACE | default       |
-| KC_SPI_EVENTS_LISTENER_EVENT_LISTENER_TEMPORAL_QUEUE     | keycloak      |
+| Variable                                  | Value         |
+|-------------------------------------------|---------------|
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_SERVER    | temporal:7233 |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_NAMESPACE | default       |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_QUEUE     | keycloak      |
 
 # License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
