@@ -21,8 +21,9 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          cache: 'maven'
           distribution: 'temurin'
+          java-version: '17'
       - name: PR Check
         if: github.event_name == 'pull_request'
         run: mvn --batch-mode compile
