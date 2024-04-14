@@ -8,9 +8,7 @@
 
 This Keycloak SPI Event Listener integrates with Temporal Server, allowing you to publish events to it.
 
-<picture>
-    <img alt="Example Screenshot" src=".assets/temporal-ss-real-case.png"/>
-</picture>
+ ![Example Screenshot of Workflow](.assets/temporal-ss-real-case.png)
 
 ## Example Event
 
