@@ -9,7 +9,7 @@
 This Keycloak SPI Event Listener integrates with Temporal Server, allowing you to publish events to it.
 
 <picture>
-    <img alt="Example Screenshot" src="https://raw.githubusercontent.com/InfinityFlowApp/keycloak-event-listener-temporal/main/.assets/temporal-ss-real-case.png"/>
+    <img alt="Example Screenshot" src=".assets/temporal-ss-real-case.png"/>
 </picture>
 
 ## Example Event
