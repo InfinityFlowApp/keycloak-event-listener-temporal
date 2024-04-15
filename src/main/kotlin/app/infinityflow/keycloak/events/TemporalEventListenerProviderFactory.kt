@@ -41,10 +41,10 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
         _clientCertKey = config?.get("client-cert-key") ?: _clientCertKey
 
         val workflowServiceStubsOptionsBuilder = WorkflowServiceStubsOptions.newBuilder()
-            .setTarget(server)
+            .setTarget(_server)
 
-        if (clientCert.isNotEmpty() && _clientCertKey.isNotEmpty()) {
-            FileInputStream(clientCert).use { certInputStream ->
+        if (_clientCert.isNotEmpty() && _clientCertKey.isNotEmpty()) {
+            FileInputStream(_clientCert).use { certInputStream ->
                 FileInputStream(_clientCertKey).use { keyInputStream ->
                     val sslContext = SimpleSslContextBuilder.forPKCS8(certInputStream, keyInputStream).build()
                     workflowServiceStubsOptionsBuilder.setSslContext(sslContext)
@@ -54,7 +54,7 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
 
         val workflowServiceStubs = WorkflowServiceStubs.newServiceStubs(workflowServiceStubsOptionsBuilder.build())
         
-        workflowClient = WorkflowClient.newInstance(workflowServiceStubs, WorkflowClientOptions.newBuilder()
+        _workflowClient = WorkflowClient.newInstance(workflowServiceStubs, WorkflowClientOptions.newBuilder()
             .setNamespace(_namespace)
             .build())
     }
@@ -70,7 +70,7 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
             _logger.debugf("Closing %s", TemporalEventListenerProviderFactory::class)
         }
 
-        workflowClient?.close()  // Close the workflow client if it's not null
+        _workflowClient?.close()  // Close the workflow client if it's not null
         _workflowClient = null
     }
 
