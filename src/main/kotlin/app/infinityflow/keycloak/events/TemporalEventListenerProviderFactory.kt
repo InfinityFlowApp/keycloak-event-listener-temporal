@@ -34,18 +34,18 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
             _logger.debugf("Initializing %s", TemporalEventListenerProviderFactory::class)
         }
 
-        _server = config?.get("server") ?: server
-        _namespace = config?.get("namespace") ?: namespace
-        _taskQueue = config?.get("task-queue") ?: taskQueue
-        _clientCert = config?.get("client-cert") ?: clientCert
-        _clientCertKey = config?.get("client-cert-key") ?: clientCertKey
+        _server = config?.get("server") ?: _server
+        _namespace = config?.get("namespace") ?: _namespace
+        _taskQueue = config?.get("task-queue") ?: _taskQueue
+        _clientCert = config?.get("client-cert") ?: _clientCert
+        _clientCertKey = config?.get("client-cert-key") ?: _clientCertKey
 
         val workflowServiceStubsOptionsBuilder = WorkflowServiceStubsOptions.newBuilder()
             .setTarget(server)
 
-        if (clientCert.isNotEmpty() && clientCertKey.isNotEmpty()) {
+        if (clientCert.isNotEmpty() && _clientCertKey.isNotEmpty()) {
             FileInputStream(clientCert).use { certInputStream ->
-                FileInputStream(clientCertKey).use { keyInputStream ->
+                FileInputStream(_clientCertKey).use { keyInputStream ->
                     val sslContext = SimpleSslContextBuilder.forPKCS8(certInputStream, keyInputStream).build()
                     workflowServiceStubsOptionsBuilder.setSslContext(sslContext)
                 }
@@ -55,7 +55,7 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
         val workflowServiceStubs = WorkflowServiceStubs.newServiceStubs(workflowServiceStubsOptionsBuilder.build())
         
         workflowClient = WorkflowClient.newInstance(workflowServiceStubs, WorkflowClientOptions.newBuilder()
-            .setNamespace(namespace)
+            .setNamespace(_namespace)
             .build())
     }
 
