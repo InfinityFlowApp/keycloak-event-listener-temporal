@@ -70,7 +70,6 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
             _logger.debugf("Closing %s", TemporalEventListenerProviderFactory::class)
         }
 
-        _workflowClient?.close()  // Close the workflow client if it's not null
         _workflowClient = null
     }
 
