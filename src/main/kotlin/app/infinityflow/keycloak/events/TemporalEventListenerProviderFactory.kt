@@ -60,7 +60,9 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
     }
 
     override fun postInit(factory: KeycloakSessionFactory?) {
-        _logger.debugf("Global Initialization %s", TemporalEventListenerProviderFactory::class.java)
+        if (_logger.isDebugEnabled) {
+            _logger.debugf("Global Initialization %s", TemporalEventListenerProviderFactory::class.java)
+        }
     }
 
     override fun close() {
