@@ -37,8 +37,8 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
         _server = config?.get("server") ?: _server
         _namespace = config?.get("namespace") ?: _namespace
         _taskQueue = config?.get("task-queue") ?: _taskQueue
-        _clientCert = config?.get("client-cert") ?: _clientCert
-        _clientCertKey = config?.get("client-cert-key") ?: _clientCertKey
+        _clientCert = config?.get("mtls-cert-file") ?: _clientCert
+        _clientCertKey = config?.get("mtls-key-file") ?: _clientCertKey
 
         val workflowServiceStubsOptionsBuilder = WorkflowServiceStubsOptions.newBuilder()
             .setTarget(_server)
