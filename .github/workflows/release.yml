@@ -18,6 +18,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          trust_level: 4
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -27,8 +33,14 @@ jobs:
       - name: PR Check
         if: github.event_name == 'pull_request'
         run: mvn --batch-mode package
-      - name: Publish package
+      - name: Publish package to GitHub Maven Repository
         run: mvn --batch-mode deploy
         if: github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish package to Maven Central Repository
+        if: github.event_name == 'release'
+        run: mvn -P release --batch-mode deploy
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_AUTOPUBLISH: false
