@@ -8,8 +8,8 @@ class TestScope : Scope {
         "server" to "localhost:7233",
         "task-queue" to "default",
         "namespace" to "default",
-        "client-cert" to "",
-        "client-cert-key" to ""
+        "mtls-cert-file" to "",
+        "mtls-key-file" to ""
     )
 
     override fun get(p0: String?): String {
