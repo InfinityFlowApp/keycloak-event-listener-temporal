@@ -16,5 +16,13 @@
 	"forwardPorts": [
 		7233,
 		8233
-	]
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mathiasfrohlich.Kotlin",
+				"redhat.fabric8-analytics"
+			]
+		}
+	}
 }

@@ -7,7 +7,9 @@ class TestScope : Scope {
     private val _map: Map<String, String> = mapOf(
         "server" to "localhost:7233",
         "task-queue" to "default",
-        "namespace" to "default"
+        "namespace" to "default",
+        "mtls-cert-file" to "",
+        "mtls-key-file" to ""
     )
 
     override fun get(p0: String?): String {

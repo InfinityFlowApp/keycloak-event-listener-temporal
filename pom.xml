@@ -46,6 +46,7 @@
                 <version>1.9.23</version>
                 <executions>
                     <execution>
+                        <?m2e execute onConfiguration,onIncremental?>
                         <id>compile</id>
                         <phase>compile</phase>
                         <goals>
@@ -53,6 +54,7 @@
                         </goals>
                     </execution>
                     <execution>
+                        <?m2e execute onConfiguration,onIncremental?>
                         <id>test-compile</id>
                         <phase>test-compile</phase>
                         <goals>
