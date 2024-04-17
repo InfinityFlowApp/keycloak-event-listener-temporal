@@ -8,6 +8,8 @@
     <artifactId>keycloak-event-listener-temporal</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <url>https://infinityflow.app/</url>
+    <description>A Keycloak SPI Event Listener that publishes events to Temporal Server</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -18,13 +20,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <keycloak.version>24.0.3</keycloak.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>mavenCentral</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
 
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
@@ -79,6 +74,7 @@
                     <mainClass>MainKt</mainClass>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -92,9 +88,6 @@
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.PaxosServer</mainClass>
-                                </transformer>
                             </transformers>
                         </configuration>
                     </execution>
@@ -172,5 +165,89 @@
                 </repository>
             </distributionManagement>
         </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jetbrains.dokka</groupId>
+                        <artifactId>dokka-maven-plugin</artifactId>
+                        <version>1.9.20</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>javadocJar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.4.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                            <autoPublish>${env.MAVEN_AUTOPUBLISH}</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <gpg.executable>gpg2</gpg.executable>
+                <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+            </properties>
+        </profile>
     </profiles>
+
+    <developers>
+        <developer>
+            <id>snovak7</id>
+            <name>Simon Novak</name>
+            <url>https://github.com/snovak7</url>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/InfinityFlowApp/keycloak-event-listener-temporal.git</connection>
+        <developerConnection>scm:git:https://github.com/InfinityFlowApp/keycloak-event-listener-temporal.git</developerConnection>
+        <url>https://github.com/InfinityFlowApp/keycloak-event-listener-temporal</url>
+    </scm>
 </project>
