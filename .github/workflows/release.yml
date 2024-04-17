@@ -44,3 +44,5 @@ jobs:
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           MAVEN_AUTOPUBLISH: false
+          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
