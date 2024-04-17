@@ -1,4 +1,4 @@
-name-template: "Keycloak Event Listener for Temporal $RESOLVED_VERSION"
+name-template: "Keycloak Event Listener for Temporal v$RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 change-template: "- $TITLE by @$AUTHOR (#$NUMBER)"
 no-changes-template: "- No changes"
@@ -15,6 +15,12 @@ categories:
   - title: "🧰 Maintenance"
     labels:
       - "maintenance"
+  - title: "🚨 Security Updates"
+    labels:
+      - "security"
+  - title: "🔄 Dependency Updates"
+    labels:
+      - "dependencies"
 
 version-resolver:
   major:
