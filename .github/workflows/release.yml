@@ -38,6 +38,14 @@ jobs:
         if: github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Upload Release Artifacts'
+        if: github.event_name == 'release'
+        run: |
+          cd ${{ github.workspace }}/target
+          gh release upload ${{ github.event.release.tag_name }} *.jar*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
       - name: Publish package to Maven Central Repository
         if: github.event_name == 'release'
         run: mvn -P release --batch-mode deploy
