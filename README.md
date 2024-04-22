@@ -57,26 +57,28 @@ You can configure the listener using one of the following methods:
 
 Use the following command-line parameters:
 
-| Parameter                                                           |
-| ------------------------------------------------------------------- |
-| --spi-events-listener-temporal-server=temporal:7233                 |
-| --spi-events-listener-temporal-namespace=default                    |
-| --spi-events-listener-temporal-task-queue=keycloak                  |
-| --spi-events-listener-temporal-mtls-cert-file=/etc/client-cert.crt  |
-| --spi-events-listener-temporal-mtls-key-file=/etc/client-cert.key   |
+| Parameter                                                                |
+|--------------------------------------------------------------------------|
+| --spi-events-listener-temporal-server=temporal:7233                      |
+| --spi-events-listener-temporal-namespace=default                         |
+| --spi-events-listener-temporal-task-queue=keycloak                       |
+| --spi-events-listener-temporal-mtls-cert-file=/etc/client-cert.crt       |
+| --spi-events-listener-temporal-mtls-key-file=/etc/client-cert.key        |
+| --spi-events-listener-temporal-mtls-override-authority=frontend.temporal |
 
 
 ### Option 2: Environment Variables
 
 Alternatively, you can set these environmental variables:
 
-| Variable                                        | Value                |
-| ----------------------------------------------- | -------------------- |
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_SERVER          | temporal:7233        |
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_NAMESPACE       | default              |
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_TASK_QUEUE      | keycloak             |
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_MTLS_CERT_FILE  | /etc/client-cert.crt |
-| KC_SPI_EVENTS_LISTENER_TEMPORAL_MTLS_KEY_FILE   | /etc/client-cert.key |
+| Variable                                                | Value                |
+|---------------------------------------------------------|----------------------|
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_SERVER                  | temporal:7233        |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_NAMESPACE               | default              |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_TASK_QUEUE              | keycloak             |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_MTLS_CERT_FILE          | /etc/client-cert.crt |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_MTLS_KEY_FILE           | /etc/client-cert.key |
+| KC_SPI_EVENTS_LISTENER_TEMPORAL_MTLS_OVERRIDE_AUTHORITY | frontend.temporal    |
 
 # License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.

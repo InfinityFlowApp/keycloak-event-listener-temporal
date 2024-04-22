@@ -9,7 +9,8 @@ class TestScope : Scope {
         "task-queue" to "default",
         "namespace" to "default",
         "mtls-cert-file" to "",
-        "mtls-key-file" to ""
+        "mtls-key-file" to "",
+        "mtls-override-authority" to "",
     )
 
     override fun get(p0: String?): String {
