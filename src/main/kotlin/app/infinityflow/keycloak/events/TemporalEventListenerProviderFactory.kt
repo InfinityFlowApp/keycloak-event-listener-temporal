@@ -21,10 +21,11 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
     private var _taskQueue = "keycloak"
     private var _clientCert = ""
     private var _clientCertKey = ""
+    private var _channelOverrideAuthority = ""
 
     override fun create(session: KeycloakSession?): EventListenerProvider {
         if (_logger.isDebugEnabled) {
-        _logger.debugf("Creating %s", TemporalEventListenerProvider::class)
+            _logger.debugf("Creating %s", TemporalEventListenerProvider::class)
         }
         return TemporalEventListenerProvider(_workflowClient!!, _taskQueue)
     }
@@ -39,24 +40,36 @@ class TemporalEventListenerProviderFactory : EventListenerProviderFactory {
         _taskQueue = config?.get("task-queue") ?: _taskQueue
         _clientCert = config?.get("mtls-cert-file") ?: _clientCert
         _clientCertKey = config?.get("mtls-key-file") ?: _clientCertKey
+        _channelOverrideAuthority = config?.get("mtls-override-authority") ?: _channelOverrideAuthority
 
-        val workflowServiceStubsOptionsBuilder = WorkflowServiceStubsOptions.newBuilder()
+        val workflowServiceStubsOptionsBuilder = WorkflowServiceStubsOptions
+            .newBuilder()
             .setTarget(_server)
 
         if (_clientCert.isNotEmpty() && _clientCertKey.isNotEmpty()) {
             FileInputStream(_clientCert).use { certInputStream ->
                 FileInputStream(_clientCertKey).use { keyInputStream ->
-                    val sslContext = SimpleSslContextBuilder.forPKCS8(certInputStream, keyInputStream).build()
+                    val sslContext = SimpleSslContextBuilder
+                        .forPKCS8(certInputStream, keyInputStream)
+                        .build()
+
                     workflowServiceStubsOptionsBuilder.setSslContext(sslContext)
+
+                    if (_channelOverrideAuthority.isNotEmpty()) {
+                        workflowServiceStubsOptionsBuilder
+                            .setChannelInitializer { channel -> channel.overrideAuthority(_channelOverrideAuthority) }
+                    }
                 }
             }
         }
 
         val workflowServiceStubs = WorkflowServiceStubs.newServiceStubs(workflowServiceStubsOptionsBuilder.build())
-        
-        _workflowClient = WorkflowClient.newInstance(workflowServiceStubs, WorkflowClientOptions.newBuilder()
-            .setNamespace(_namespace)
-            .build())
+
+        _workflowClient = WorkflowClient
+            .newInstance(workflowServiceStubs, WorkflowClientOptions
+                .newBuilder()
+                .setNamespace(_namespace)
+                .build())
     }
 
     override fun postInit(factory: KeycloakSessionFactory?) {
