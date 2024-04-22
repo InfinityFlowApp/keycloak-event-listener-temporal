@@ -11,6 +11,10 @@ on:
       - reopened
       - synchronize
   workflow_dispatch: {}
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' && github.ref_type != 'tag' }}
+
 
 jobs:
   update_release_draft:
