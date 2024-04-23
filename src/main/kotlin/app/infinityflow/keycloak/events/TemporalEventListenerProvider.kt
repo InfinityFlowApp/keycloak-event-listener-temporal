@@ -68,7 +68,7 @@ internal class TemporalEventListenerProvider(workflowClient: WorkflowClient, tas
 
             if (_logger.isDebugEnabled)
             {
-                _logger.debugf("Started workflow (workflowId=%s, runId=%s)", execution.workflowId, execution.runId)
+                _logger.debugf("Started workflow (workflowId=%s)", event.id)
             }
         } catch (e: Exception) {
             _logger.errorf(e, "Error while starting workflow %s", eventWorkflowStub)
@@ -128,7 +128,7 @@ internal class TemporalEventListenerProvider(workflowClient: WorkflowClient, tas
 
             if (_logger.isDebugEnabled)
             {
-                _logger.debugf("Started workflow (workflowId=%s, runId=%s)", execution.workflowId, execution.runId)
+                _logger.debugf("Started workflow (workflowId=%s)", event.id)
             }
         } catch (e: Exception) {
             _logger.errorf(e, "Error while starting workflow %s", adminEventWorkflowStub)
