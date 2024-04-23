@@ -51,8 +51,8 @@ internal class TemporalEventListenerProvider(workflowClient: WorkflowClient, tas
         )
 
         val eventWorkflowStub = _workflowClient
-            .newWorkflowStub(
-                KeycloakEventWorkflow::class.java,
+            .newUntypedWorkflowStub(
+                "KeycloakEventWorkflow",
                 WorkflowOptions
                     .newBuilder()
                     .setTaskQueue(_taskQueue)
@@ -64,11 +64,11 @@ internal class TemporalEventListenerProvider(workflowClient: WorkflowClient, tas
                 _logger.debugf("Starting workflow %s", eventWorkflowStub)
             }
 
-            val execution = WorkflowClient.start(eventWorkflowStub!!::send, eventParameter)
+            eventWorkflowStub.start(eventParameter)
 
             if (_logger.isDebugEnabled)
             {
-                _logger.debugf("Started workflow (workflowId=%s, runId=%s)", execution.workflowId, execution.runId)
+                _logger.debugf("Started workflow (workflowId=%s)", event.id)
             }
         } catch (e: Exception) {
             _logger.errorf(e, "Error while starting workflow %s", eventWorkflowStub)
@@ -111,8 +111,8 @@ internal class TemporalEventListenerProvider(workflowClient: WorkflowClient, tas
         )
 
         val adminEventWorkflowStub = _workflowClient
-            .newWorkflowStub(
-                KeycloakAdminEventWorkflow::class.java,
+            .newUntypedWorkflowStub(
+                "KeycloakAdminEventWorkflow",
                 WorkflowOptions
                     .newBuilder()
                     .setTaskQueue(_taskQueue)
@@ -124,11 +124,11 @@ internal class TemporalEventListenerProvider(workflowClient: WorkflowClient, tas
                 _logger.debugf("Starting workflow %s", adminEventWorkflowStub)
             }
 
-            val execution = WorkflowClient.start(adminEventWorkflowStub!!::send, eventParameter)
+            adminEventWorkflowStub.start(eventParameter)
 
             if (_logger.isDebugEnabled)
             {
-                _logger.debugf("Started workflow (workflowId=%s, runId=%s)", execution.workflowId, execution.runId)
+                _logger.debugf("Started workflow (workflowId=%s)", event.id)
             }
         } catch (e: Exception) {
             _logger.errorf(e, "Error while starting workflow %s", adminEventWorkflowStub)
