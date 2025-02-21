@@ -20,6 +20,7 @@ jobs:
           fetch-depth: 0
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
+        if: github.event_name == 'release'
         with:
           gpg_private_key: ${{ secrets.GPG_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
